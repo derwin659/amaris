@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "TBL_PERSONA")
+@Table(name = "tbl_persona")
 public class Person extends BaseEntity{
 
     public Person(Long id) {

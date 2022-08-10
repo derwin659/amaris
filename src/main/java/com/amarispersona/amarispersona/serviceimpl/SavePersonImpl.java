@@ -25,7 +25,7 @@ public class SavePersonImpl implements SavePersonService {
         person.setFirstLastName(requestDto.getFirstLastName());
         person.setNumberDocument(requestDto.getNumberDocument());
         person.setSecondName(requestDto.getSecondName());
-        person.setTypeDocument(requestDto.getTypeDocument());
+        person.setTypeDocument(requestDto.getTypeDocument().toLowerCase());
         person.setSecondLastName(requestDto.getSecondLastName());
 
         personRepository.save(person);

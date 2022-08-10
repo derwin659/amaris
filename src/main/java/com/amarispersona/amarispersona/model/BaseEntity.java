@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity  implements Serializable {
     private static final String ID= "ID";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
