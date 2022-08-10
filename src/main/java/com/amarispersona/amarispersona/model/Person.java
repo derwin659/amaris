@@ -38,7 +38,7 @@ public class Person extends BaseEntity{
     private String typeDocument;
 
 
-    @Column(name = NUMBER_DOCUMENT)
+    @Column(name = NUMBER_DOCUMENT,unique = true)
     private String numberDocument;
 
 

@@ -32,6 +32,7 @@ public class SavePersonaController {
     private final String ERROR_REQUEST="Error en  el request";
     private final String ERROR_SERVER="Error en  el servicio";
     private final String ERRORINGRESO="Solo se debe ingresar C para una Cedula o P para pasaporte en typeDocument, para poder guardar en base de datos";
+    private final String EXISTDOCUMENT="Solo se permite almacenar una persona con un unico nuemero de documento";
     private final SavePersonService savePersonService;
 
     public SavePersonaController(SavePersonService savePersonService) {
@@ -44,12 +45,12 @@ public class SavePersonaController {
             try {
                 this.savePersonService.savePerson(requestDto);
                 return new ResponseEntity<>(MENSAJE, HttpStatus.OK);
-            } catch (ServerErrorException e) {
+            }catch (ServerErrorException e) {
                 logger.info(ERROR_SERVER + e.getMessage());
                 return new ResponseEntity<>(ERROR_SERVER, HttpStatus.INTERNAL_SERVER_ERROR);
             } catch (Exception e) {
-                logger.info(ERROR + e.getMessage());
-                return new ResponseEntity<>(ERROR_REQUEST, HttpStatus.BAD_REQUEST);
+                logger.info(EXISTDOCUMENT + e.getMessage());
+                return new ResponseEntity<>(EXISTDOCUMENT, HttpStatus.BAD_REQUEST);
             }
 
         }
