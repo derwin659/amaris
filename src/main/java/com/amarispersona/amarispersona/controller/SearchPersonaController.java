@@ -21,6 +21,10 @@ public class SearchPersonaController {
 
     private final SearchPersonService searchPersonService;
     private final String MENSAJE="Esta persona no se encuentra en la base de datos ";
+    private final String ERROR="Ha ocurrido un error";
+    private final String ERROR_REQUEST="Error en  el request";
+    private final String ERROR_SERVER="Error en  el servicio";
+    private final String ERRORINGRESO="Solo se debe ingresar C para una Cedula o P para pasaporte en typeDocument, para poder guardar en base de datos";
 
 
     public SearchPersonaController(SearchPersonService searchPersonService) {
@@ -39,11 +43,11 @@ public class SearchPersonaController {
                 }
 
             } catch (ServerErrorException e) {
-                logger.info("Ha ocurrido un error" + e.getMessage());
-                return new ResponseEntity<>("Error en  el servicio ", HttpStatus.INTERNAL_SERVER_ERROR);
+                logger.info(ERROR_SERVER + e.getMessage());
+                return new ResponseEntity<>(ERROR_SERVER, HttpStatus.INTERNAL_SERVER_ERROR);
             }  catch (NullPointerException e) {
-                logger.info("Ha ocurrido un error" + e.getMessage());
-                return new ResponseEntity<>("Error en  el request ", HttpStatus.NOT_FOUND);
+                logger.info(ERROR_REQUEST+ e.getMessage());
+                return new ResponseEntity<>(ERROR_REQUEST, HttpStatus.NOT_FOUND);
             }
             catch (NoSuchElementException e) {
                 logger.info("Ha ocurrido un error" + e.getMessage());

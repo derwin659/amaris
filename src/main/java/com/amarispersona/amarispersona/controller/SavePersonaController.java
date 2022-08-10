@@ -27,7 +27,11 @@ import java.util.NoSuchElementException;
 @Validated
 public class SavePersonaController {
     private static final Logger logger = LoggerFactory.getLogger(SavePersonaController.class);
-
+    private final String MENSAJE="La persona se ha almacenado exitosamente";
+    private final String ERROR="Ha ocurrido un error";
+    private final String ERROR_REQUEST="Error en  el request";
+    private final String ERROR_SERVER="Error en  el servicio";
+    private final String ERRORINGRESO="Solo se debe ingresar C para una Cedula o P para pasaporte en typeDocument, para poder guardar en base de datos";
     private final SavePersonService savePersonService;
 
     public SavePersonaController(SavePersonService savePersonService) {
@@ -39,17 +43,17 @@ public class SavePersonaController {
         if ((requestDto.getTypeDocument().length() == 1) && (requestDto.getTypeDocument().toLowerCase().equals("c") || requestDto.getTypeDocument().toLowerCase().equals("p"))) {
             try {
                 this.savePersonService.savePerson(requestDto);
-                return new ResponseEntity<>("La persona se ha almacenado exitosamente", HttpStatus.OK);
+                return new ResponseEntity<>(MENSAJE, HttpStatus.OK);
             } catch (ServerErrorException e) {
-                logger.info("Ha ocurrido un error" + e.getMessage());
-                return new ResponseEntity<>("Error en  el servicio ", HttpStatus.INTERNAL_SERVER_ERROR);
+                logger.info(ERROR_SERVER + e.getMessage());
+                return new ResponseEntity<>(ERROR_SERVER, HttpStatus.INTERNAL_SERVER_ERROR);
             } catch (Exception e) {
-                logger.info("Ha ocurrido un error" + e.getMessage());
-                return new ResponseEntity<>("Error en  el request ", HttpStatus.BAD_REQUEST);
+                logger.info(ERROR + e.getMessage());
+                return new ResponseEntity<>(ERROR_REQUEST, HttpStatus.BAD_REQUEST);
             }
 
         }
-        return new ResponseEntity<>("Solo se debe ingresar C para una Cedula o P para pasaporte en typeDocument, para poder guardar en base de datos", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ERRORINGRESO, HttpStatus.BAD_REQUEST);
 
 
 
