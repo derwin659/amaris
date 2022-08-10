@@ -1,1 +1,1 @@
-web : java -jar -Dspring.profiles.active=pdn target/ * .jar
+web: java -jar -Dspring.profiles.active=pdn target/amarispersona-PERSONA.jar
